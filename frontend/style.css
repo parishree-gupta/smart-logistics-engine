@@ -1,0 +1,179 @@
+/* ---------- BLACK BACKGROUND ---------- */
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ---------- TITLE ---------- */
+h1{
+    text-align:center;
+    margin:20px;
+    color:#38bdf8;
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    padding:20px;
+}
+
+/* ---------- CARD ---------- */
+.card{
+    background:#111;
+    border-radius:20px;
+    padding:20px;
+    border:1px solid #222;
+    box-shadow:0 0 20px rgba(56,189,248,0.08);
+}
+
+/* ---------- INPUTS ---------- */
+input, textarea{
+    width:100%;
+    margin:8px 0;
+    padding:12px;
+    border-radius:15px;
+    border:1px solid #222;
+    background:#000;
+    color:white;
+    font-size:14px;
+}
+
+/* BIG TEXTBOX */
+.big-box{
+    height:120px;
+}
+
+/* 🔥 UPDATED ROADS BOX */
+.roads-box{
+    height:160px;
+    font-family:monospace;
+    line-height:1.6;
+}
+
+/* ---------- BUTTON ---------- */
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:15px;
+    background:#38bdf8;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 10px #38bdf8;
+}
+
+/* ---------- OUTPUT BOX ---------- */
+.output-box{
+    background:#0a0f1a;
+    border-radius:20px;
+    border:1px solid #1e293b;
+    padding:15px;
+    margin-top:10px;
+}
+
+.output-header{
+    display:flex;
+    justify-content:space-between;
+    color:#94a3b8;
+    margin-bottom:10px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    background:#22c55e;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:5px;
+}
+
+pre{
+    white-space:pre-wrap;
+    color:#60a5fa;
+    font-family:monospace;
+    max-height:300px;
+    overflow:auto;
+}
+
+/* ---------- GRAPH ---------- */
+canvas{
+    display:block;
+    margin:20px auto;
+    background:#0b1220;
+    border-radius:20px;
+    border:1px solid #1f2937;
+    box-shadow:0 0 30px rgba(56,189,248,0.1);
+}
+
+/* ---------- LOADER ---------- */
+.loader{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:60px;
+    height:60px;
+    border:6px solid #1f2937;
+    border-top:6px solid #38bdf8;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    transform:translate(-50%,-50%);
+    z-index:999;
+}
+
+.hidden{
+    display:none;
+}
+
+@keyframes spin{
+    0%{transform:translate(-50%,-50%) rotate(0deg);}
+    100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* 🔥 GRAPH SECTION BOX */
+.graph-section{
+    margin:20px;
+    padding:20px;
+    background:#0a0f1a;
+    border-radius:20px;
+    border:1px solid #1f2937;
+}
+
+/* 🔥 DASHBOARD FIX */
+.dashboard{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin:20px;
+}
+
+.stat-box{
+    background:#0a0f1a;
+    border:1px solid #1f2937;
+    border-radius:15px;
+    padding:15px 25px;
+    font-size:18px;
+    color:white;
+    box-shadow:0 0 15px rgba(56,189,248,0.08);
+    transition:0.2s;
+}
+
+.stat-box:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(56,189,248,0.2);
+}
+
+.stat-box span{
+    color:#38bdf8;
+    font-weight:bold;
+}

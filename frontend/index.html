@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Logistics Engine</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader hidden"></div>
+
+    <!-- HERO -->
+    <h1>🚚 Smart Logistics Optimization Engine</h1>
+
+    <p style="text-align:center;color:#94a3b8;margin-top:-10px;">
+        Advanced C++ Algorithms • Real-Time Simulation • Route Optimization
+    </p>
+
+    <div class="container">
+
+        <!-- LEFT PANEL -->
+        <div class="card">
+
+            <h3>📍 Cities</h3>
+            <input id="cities" placeholder="Delhi,Noida,Gurgaon">
+
+            <h3>🛣 Roads</h3>
+            <textarea id="roads"
+                class="big-box roads-box"
+                placeholder="Delhi Noida 10"></textarea>
+
+            <h3>🧑 Delivery Agents</h3>
+            <textarea id="agents"
+                class="big-box"
+                placeholder="Delhi 10"></textarea>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="card">
+
+            <h3>📦 Orders</h3>
+
+            <textarea id="orders"
+                class="big-box"
+                placeholder="Noida 4 5 3"></textarea>
+
+            <button onclick="run()">🚀 Run Optimization</button>
+
+            <h3>📊 Output</h3>
+
+            <div class="output-box">
+
+                <div class="output-header">
+                    <span>
+                        <span class="dot"></span>
+                        Optimization Completed
+                    </span>
+
+                    <span id="execTime"></span>
+                </div>
+
+                <pre id="output"></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+
+        <div class="stat-box">
+            Cities:
+            <span id="statCities">0</span>
+        </div>
+
+        <div class="stat-box">
+            Roads:
+            <span id="statRoads">0</span>
+        </div>
+
+        <div class="stat-box">
+            Orders:
+            <span id="statOrders">0</span>
+        </div>
+
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-container">
+
+        <h3 style="text-align:center;">
+            📊 Cost Comparison
+        </h3>
+
+        <canvas id="chart"></canvas>
+
+    </div>
+
+    <!-- GRAPH SECTION -->
+    <div class="graph-section">
+
+        <div>
+
+            <h2 style="text-align:center;">
+                🗺️ Delivery Network
+            </h2>
+
+            <canvas id="canvas"></canvas>
+
+            <div id="legend"></div>
+
+        </div>
+
+        <div class="graph-info">
+
+            <h3>📘 Description</h3>
+
+            <p>
+                This visualization represents the logistics delivery network.
+                Each node represents a city and each edge represents a road.
+
+                Optimized routes are generated using advanced C++ algorithms:
+            </p>
+
+            <ul>
+                <li>Dijkstra Shortest Path</li>
+                <li>Knapsack Optimization</li>
+                <li>Travelling Salesman Routing</li>
+                <li>Greedy vs Optimal Comparison</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
