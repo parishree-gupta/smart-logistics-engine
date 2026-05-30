@@ -2,28 +2,20 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import subprocess
 import os
-
 app = Flask(__name__)
 CORS(app)
-
-
 @app.route("/")
 def home():
     return "Smart Logistics Backend Running"
 
-
 @app.route("/run", methods=["POST"])
 def run_engine():
-
     try:
-
         data = request.json
-
         cities = data.get("cities", [])
         roads = data.get("roads", [])
         agents = data.get("agents", [])
         orders = data.get("orders", [])
-
         # -------------------------------
         # CITY INDEX MAP
         # -------------------------------
@@ -110,34 +102,26 @@ def run_engine():
                 )
 
             f.write("\n")
-
             # Orders
             for order in orders:
-
                 parts = order.split()
-
                 city_name = parts[0]
                 weight = parts[1]
                 deadline = parts[2]
                 priority = parts[3]
-
                 city_id = city_index[
                     city_name
                 ]
-
                 f.write(
                     f"{city_id} "
                     f"{weight} "
                     f"{deadline} "
                     f"{priority}\n"
                 )
-
         # -------------------------------
         # RUN C++ ENGINE
         # -------------------------------
-
         exe_path = "../cpp_engine/build/main.exe"
-
         result = subprocess.run(
             exe_path,
             capture_output=True,
@@ -146,21 +130,15 @@ def run_engine():
         )
         print("STDOUT:")
         print(result.stdout)
-
         print("STDERR:")
         print(result.stderr)
-
         return jsonify({
             "output": result.stdout,
             "stderr": result.stderr,
         })
-
     except Exception as e:
-
         return jsonify({
             "error": str(e)
         })
-
-
 if __name__ == "__main__":
     app.run(debug=True)
