@@ -10,8 +10,8 @@ A logistics optimization and simulation system built using C++, Flask, HTML, CSS
 - Dynamic Traffic Simulation
 - Road Block Detection and Handling
 - Live Event Generation
-- Multi-Agent Delivery Planning
 - Performance Analysis with Execution Time Tracking
+- Multi-Agent Delivery Planning
 - Interactive Dashboard Interface
 
 ## Tech Stack
