@@ -35,29 +35,22 @@ void TrafficManager::simulateRoadBlocks() {
     cout << "\n========== ROAD STATUS ==========\n";
     for(int i = 0; i < adj.size(); i++) {
         for(auto& road : adj[i]) {
-
             bool blocked =
                 (rand() % 20 == 0);
-
             cout
                 << "Road "
                 << graph.getCityName(road.from)
                 << " -> "
                 << graph.getCityName(road.to)
                 << " | ";
-
             if(blocked) {
-
                 cout << "BLOCKED";
             }
             else {
-
                 cout << "OPEN";
             }
-
             cout << "\n";
         }
     }
-
     cout << "=================================\n";
 }
