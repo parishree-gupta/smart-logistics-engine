@@ -20,55 +20,40 @@ void EventManager::generateEvents()
         "TRAFFIC_SPIKE"};
     for (int i = 0; i < eventCount; i++)
     {
-
         Event e;
-
         e.type =
             eventTypes[rand() % eventTypes.size()];
-
         e.severity =
             1 + rand() % 10;
-
         e.description =
             "Dynamic logistics event triggered";
-
         // ---------- DYNAMIC ROAD BLOCK ----------
         if (
             (e.type == "ACCIDENT" || e.type == "ROADBLOCK") &&
             graph.getVertices() > 1)
         {
-
             int from =
                 rand() % graph.getVertices();
-
             int to =
                 rand() % graph.getVertices();
-
             while (to == from)
             {
-
-                to =
+               to =
                     rand() % graph.getVertices();
             }
-
             graph.blockRoad(from, to);
-
             e.description =
                 "Road blocked between " + graph.getCityName(from) + " and " + graph.getCityName(to);
         }
-
         events.push_back(e);
     }
 }
 // ---------- SHOW EVENTS ----------
 void EventManager::showEvents()
 {
-
     cout << "\n========== LIVE EVENTS ==========\n";
-
     for (auto &e : events)
     {
-
         cout
             << "Event: "
             << e.type
@@ -79,5 +64,4 @@ void EventManager::showEvents()
             << "\n";
     }
 
-    cout << "=================================\n";
-}
+    cout << "=================================\n"}
