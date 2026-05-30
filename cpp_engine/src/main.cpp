@@ -4,16 +4,13 @@
 #include "../include/traffic_manager.h"
 #include "../include/event_manager.h"
 #include <vector>
-
 #include <iterator>
 #include <iostream>
 #include <queue>
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
-
 using namespace std;
-
 // ---------- MAIN ----------
 int main()
 {
@@ -21,48 +18,32 @@ int main()
     srand(time(0));
 
     int n;
-
     cin >> n;
-
     // ---------- CREATE GRAPH ----------
     Graph graph(n);
-
     // ---------- CITY NAMES ----------
     for (int i = 0; i < n; i++)
     {
-
         string city;
-
         cin >> city;
-
         graph.setCityName(i, city);
     }
-
     // ---------- GRAPH MATRIX ----------
-    vector<vector<int>> matrix(
-        n,
-        vector<int>(n));
-
+    vector<vector<int>> matrix(n,vector<int>(n));
     for (int i = 0; i < n; i++)
     {
 
         for (int j = 0; j < n; j++)
         {
-
             cin >> matrix[i][j];
-
             // avoid duplicate roads
             if (i < j && matrix[i][j] != 0)
             {
-
                 int trafficLevel =
                     rand() % 6;
-
                 bool blocked = false;
-
                 double fuelMultiplier =
                     1.0 + (trafficLevel * 0.1);
-
                 graph.addEdge(
                     i,
                     j,
