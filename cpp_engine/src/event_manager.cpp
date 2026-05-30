@@ -1,32 +1,23 @@
 #include "../include/event_manager.h"
-
 #include <iostream>
 #include <cstdlib>
-
 using namespace std;
-
 // ---------- CONSTRUCTOR ----------
 EventManager::EventManager(Graph &g)
     : graph(g)
 {
 }
-
 // ---------- GENERATE EVENTS ----------
 void EventManager::generateEvents()
 {
-
     events.clear();
-
     int eventCount =
         1 + rand() % 5;
-
     vector<string> eventTypes = {
-
         "ACCIDENT",
         "ROADBLOCK",
         "EMERGENCY_ORDER",
         "TRAFFIC_SPIKE"};
-
     for (int i = 0; i < eventCount; i++)
     {
 
