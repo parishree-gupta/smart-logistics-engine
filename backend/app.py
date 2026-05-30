@@ -19,88 +19,62 @@ def run_engine():
         # -------------------------------
         # CITY INDEX MAP
         # -------------------------------
-
         city_index = {}
-
         for i, city in enumerate(cities):
             city_index[city.strip()] = i
-
         n = len(cities)
-
         # -------------------------------
         # BUILD ADJACENCY MATRIX
         # -------------------------------
-
         matrix = [
             [0 for _ in range(n)]
             for _ in range(n)
         ]
-
         for road in roads:
-
             parts = road.split()
-
             if len(parts) != 3:
                 continue
-
             city1 = parts[0]
             city2 = parts[1]
             distance = int(parts[2])
-
             u = city_index[city1]
             v = city_index[city2]
-
             matrix[u][v] = distance
             matrix[v][u] = distance
-
         # -------------------------------
         # WRITE INPUT.TXT
         # -------------------------------
-
         input_path = "../cpp_engine/input.txt"
-
         with open(input_path, "w") as f:
-
             f.write(str(n) + "\n")
-
             f.write(
                 " ".join(cities)
                 + "\n\n"
             )
-
             for row in matrix:
-
                 f.write(
                     " ".join(
                         map(str, row)
                     )
                     + "\n"
                 )
-
             f.write("\n")
-
             f.write(
                 f"{len(agents)} "
                 f"{len(orders)}\n\n"
             )
-
             # Agents
             for agent in agents:
-
                 parts = agent.split()
-
                 city_name = parts[0]
                 capacity = parts[1]
-
                 city_id = city_index[
                     city_name
                 ]
-
                 f.write(
                     f"{city_id} "
                     f"{capacity}\n"
                 )
-
             f.write("\n")
             # Orders
             for order in orders:
