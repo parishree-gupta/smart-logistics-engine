@@ -1,31 +1,21 @@
 #include "../include/traffic_manager.h"
-
 #include <iostream>
 #include <cstdlib>
-
 using namespace std;
-
 // ---------- CONSTRUCTOR ----------
 TrafficManager::TrafficManager(Graph& g)
     : graph(g)
 {
 }
-
 // ---------- TRAFFIC SIMULATION ----------
 void TrafficManager::simulateTraffic() {
-
     auto adj =
         graph.getAdjacencyList();
-
     cout << "\n========== TRAFFIC UPDATE ==========\n";
-
     for(int i = 0; i < adj.size(); i++) {
-
         for(auto& road : adj[i]) {
-
             int newTraffic =
                 rand() % 10;
-
             cout
                 << "Road "
                 << graph.getCityName(road.from)
@@ -36,20 +26,14 @@ void TrafficManager::simulateTraffic() {
                 << "\n";
         }
     }
-
     cout << "====================================\n";
 }
-
-// ---------- ROAD BLOCK SIMULATION ----------
+// --------- ROAD BLOCK SIMULATION ----------
 void TrafficManager::simulateRoadBlocks() {
-
     auto adj =
         graph.getAdjacencyList();
-
     cout << "\n========== ROAD STATUS ==========\n";
-
     for(int i = 0; i < adj.size(); i++) {
-
         for(auto& road : adj[i]) {
 
             bool blocked =
