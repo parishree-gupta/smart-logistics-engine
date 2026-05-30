@@ -4,70 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Logistics Engine</title>
-
+    <title>Smart Logistics Control Center</title>
     <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-    <!-- LOADER -->
-    <div id="loader" class="loader hidden"></div>
+    <div class="dashboard">
 
-    <!-- HERO -->
-    <h1>🚚 Smart Logistics Optimization Engine</h1>
+        <!-- HEADER -->
+        <header class="header">
+            <h1>🚚 Smart Logistics Control Center</h1>
+            <p>
+                Real-Time Optimization • Traffic Simulation • Route Planning
+            </p>
+        </header>
 
-    <p style="text-align:center;color:#94a3b8;margin-top:-10px;">
-        Advanced C++ Algorithms • Real-Time Simulation • Route Optimization
-    </p>
+        <!-- STATS -->
+        <section class="stats">
 
-    <div class="container">
+            <div class="stat-card">
+                <h3>Cities</h3>
+                <span id="cityCount">0</span>
+            </div>
 
-        <!-- LEFT PANEL -->
-        <div class="card">
+            <div class="stat-card">
+                <h3>Roads</h3>
+                <span id="roadCount">0</span>
+            </div>
 
-            <h3>📍 Cities</h3>
-            <input id="cities" placeholder="Delhi,Noida,Gurgaon">
+            <div class="stat-card">
+                <h3>Agents</h3>
+                <span id="agentCount">0</span>
+            </div>
 
-            <h3>🛣 Roads</h3>
-            <textarea id="roads"
-                class="big-box roads-box"
-                placeholder="Delhi Noida 10"></textarea>
+            <div class="stat-card">
+                <h3>Orders</h3>
+                <span id="orderCount">0</span>
+            </div>
 
-            <h3>🧑 Delivery Agents</h3>
-            <textarea id="agents"
-                class="big-box"
-                placeholder="Delhi 10"></textarea>
+        </section>
 
-        </div>
+        <div class="main-grid">
 
-        <!-- RIGHT PANEL -->
-        <div class="card">
+            <!-- LEFT PANEL -->
+            <div class="left-panel">
 
-            <h3>📦 Orders</h3>
-
-            <textarea id="orders"
-                class="big-box"
-                placeholder="Noida 4 5 3"></textarea>
-
-            <button onclick="run()">🚀 Run Optimization</button>
-
-            <h3>📊 Output</h3>
-
-            <div class="output-box">
-
-                <div class="output-header">
-                    <span>
-                        <span class="dot"></span>
-                        Optimization Completed
-                    </span>
-
-                    <span id="execTime"></span>
+                <div class="panel">
+                    <h2>📍 Cities</h2>
+                    <textarea id="cities">Delhi
+Noida
+Gurgaon</textarea>
                 </div>
 
-                <pre id="output"></pre>
+                <div class="panel">
+                    <h2>🛣 Roads</h2>
+                    <textarea id="roads">Delhi Noida 10
+Noida Gurgaon 15</textarea>
+                </div>
+
+                <div class="panel">
+                    <h2>🚚 Agents</h2>
+                    <textarea id="agents">Delhi 10
+Noida 15</textarea>
+                </div>
+
+                <div class="panel">
+                    <h2>📦 Orders</h2>
+                    <textarea id="orders">Noida 4 5 3
+Gurgaon 5 6 2</textarea>
+                </div>
+
+                <button
+                    type="button"
+                    class="run-btn"
+                    id="runBtn">
+                    🚀 Run Optimization
+                </button>
+
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="right-panel">
+
+                <div class="panel">
+                    <h2>📊 Optimization Results</h2>
+
+                    <pre id="output">Run the simulation to see results...</pre>
+
+                </div>
 
             </div>
 
@@ -75,76 +100,7 @@
 
     </div>
 
-    <!-- DASHBOARD -->
-    <div class="dashboard">
-
-        <div class="stat-box">
-            Cities:
-            <span id="statCities">0</span>
-        </div>
-
-        <div class="stat-box">
-            Roads:
-            <span id="statRoads">0</span>
-        </div>
-
-        <div class="stat-box">
-            Orders:
-            <span id="statOrders">0</span>
-        </div>
-
-    </div>
-
-    <!-- CHART -->
-    <div class="chart-container">
-
-        <h3 style="text-align:center;">
-            📊 Cost Comparison
-        </h3>
-
-        <canvas id="chart"></canvas>
-
-    </div>
-
-    <!-- GRAPH SECTION -->
-    <div class="graph-section">
-
-        <div>
-
-            <h2 style="text-align:center;">
-                🗺️ Delivery Network
-            </h2>
-
-            <canvas id="canvas"></canvas>
-
-            <div id="legend"></div>
-
-        </div>
-
-        <div class="graph-info">
-
-            <h3>📘 Description</h3>
-
-            <p>
-                This visualization represents the logistics delivery network.
-                Each node represents a city and each edge represents a road.
-
-                Optimized routes are generated using advanced C++ algorithms:
-            </p>
-
-            <ul>
-                <li>Dijkstra Shortest Path</li>
-                <li>Knapsack Optimization</li>
-                <li>Travelling Salesman Routing</li>
-                <li>Greedy vs Optimal Comparison</li>
-            </ul>
-
-        </div>
-
-    </div>
-
-    <!-- SCRIPT -->
-    <script src="script.js"></script>
+    <script src="script.js?v=3"></script>
 
 </body>
 

@@ -6,13 +6,14 @@
 using namespace std;
 
 // ---------- CONSTRUCTOR ----------
-EventManager::EventManager(Graph& g)
+EventManager::EventManager(Graph &g)
     : graph(g)
 {
 }
 
 // ---------- GENERATE EVENTS ----------
-void EventManager::generateEvents() {
+void EventManager::generateEvents()
+{
 
     events.clear();
 
@@ -24,17 +25,15 @@ void EventManager::generateEvents() {
         "ACCIDENT",
         "ROADBLOCK",
         "EMERGENCY_ORDER",
-        "TRAFFIC_SPIKE"
-    };
+        "TRAFFIC_SPIKE"};
 
-    for(int i = 0; i < eventCount; i++) {
+    for (int i = 0; i < eventCount; i++)
+    {
 
         Event e;
 
         e.type =
-            eventTypes[
-                rand() % eventTypes.size()
-            ];
+            eventTypes[rand() % eventTypes.size()];
 
         e.severity =
             1 + rand() % 10;
@@ -43,10 +42,10 @@ void EventManager::generateEvents() {
             "Dynamic logistics event triggered";
 
         // ---------- DYNAMIC ROAD BLOCK ----------
-        if(
-            e.type == "ACCIDENT"
-            || e.type == "ROADBLOCK"
-        ) {
+        if (
+            (e.type == "ACCIDENT" || e.type == "ROADBLOCK") &&
+            graph.getVertices() > 1)
+        {
 
             int from =
                 rand() % graph.getVertices();
@@ -54,7 +53,8 @@ void EventManager::generateEvents() {
             int to =
                 rand() % graph.getVertices();
 
-            while(to == from) {
+            while (to == from)
+            {
 
                 to =
                     rand() % graph.getVertices();
@@ -63,22 +63,20 @@ void EventManager::generateEvents() {
             graph.blockRoad(from, to);
 
             e.description =
-                "Road blocked between "
-                + graph.getCityName(from)
-                + " and "
-                + graph.getCityName(to);
+                "Road blocked between " + graph.getCityName(from) + " and " + graph.getCityName(to);
         }
 
         events.push_back(e);
     }
 }
-
 // ---------- SHOW EVENTS ----------
-void EventManager::showEvents() {
+void EventManager::showEvents()
+{
 
     cout << "\n========== LIVE EVENTS ==========\n";
 
-    for(auto& e : events) {
+    for (auto &e : events)
+    {
 
         cout
             << "Event: "

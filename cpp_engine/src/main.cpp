@@ -3,20 +3,21 @@
 #include "../include/optimizer.h"
 #include "../include/traffic_manager.h"
 #include "../include/event_manager.h"
+#include <vector>
 
+#include <iterator>
 #include <iostream>
 #include <queue>
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
-#include <thread>
-#include <mutex>
 
 using namespace std;
 
 // ---------- MAIN ----------
-int main() {
-
+int main()
+{
+    freopen("input.txt", "r", stdin);
     srand(time(0));
 
     int n;
@@ -27,7 +28,8 @@ int main() {
     Graph graph(n);
 
     // ---------- CITY NAMES ----------
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
 
         string city;
 
@@ -39,17 +41,19 @@ int main() {
     // ---------- GRAPH MATRIX ----------
     vector<vector<int>> matrix(
         n,
-        vector<int>(n)
-    );
+        vector<int>(n));
 
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
 
-        for(int j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++)
+        {
 
             cin >> matrix[i][j];
 
             // avoid duplicate roads
-            if(i < j && matrix[i][j] != 0) {
+            if (i < j && matrix[i][j] != 0)
+            {
 
                 int trafficLevel =
                     rand() % 6;
@@ -65,8 +69,7 @@ int main() {
                     matrix[i][j],
                     trafficLevel,
                     blocked,
-                    fuelMultiplier
-                );
+                    fuelMultiplier);
             }
         }
     }
@@ -81,19 +84,17 @@ int main() {
     vector<Order> orders(ordersCount);
 
     // ---------- INPUT AGENTS ----------
-    for(int i = 0; i < agentsCount; i++) {
+    for (int i = 0; i < agentsCount; i++)
+    {
 
-        cin >> agents[i].city
-            >> agents[i].capacity;
+        cin >> agents[i].city >> agents[i].capacity;
     }
 
     // ---------- INPUT ORDERS ----------
-    for(int i = 0; i < ordersCount; i++) {
+    for (int i = 0; i < ordersCount; i++)
+    {
 
-        cin >> orders[i].city
-            >> orders[i].weight
-            >> orders[i].deadline
-            >> orders[i].priority;
+        cin >> orders[i].city >> orders[i].weight >> orders[i].deadline >> orders[i].priority;
 
         // random emergency generation
         orders[i].emergency =
@@ -101,32 +102,32 @@ int main() {
     }
 
     // ---------- SORT ORDERS ----------
-    priority_queue<pair<int,int>> pq;
+    priority_queue<pair<int, int>> pq;
 
-    for(int i = 0; i < orders.size(); i++) {
+    for (int i = 0; i < orders.size(); i++)
+    {
 
         int effectivePriority =
             orders[i].priority;
 
         // emergency boost
-        if(orders[i].emergency) {
+        if (orders[i].emergency)
+        {
 
             effectivePriority += 10;
         }
 
-        pq.push({
-            effectivePriority,
-            i
-        });
+        pq.push({effectivePriority,
+                 i});
     }
 
     vector<Order> sortedOrders;
 
-    while(!pq.empty()) {
+    while (!pq.empty())
+    {
 
         sortedOrders.push_back(
-            orders[pq.top().second]
-        );
+            orders[pq.top().second]);
 
         pq.pop();
     }
@@ -145,15 +146,14 @@ int main() {
     int greedyCost =
         optimizer.greedyAssign(
             agents,
-            sortedOrders
-        );
+            sortedOrders);
 
     // ---------- TRAFFIC SIMULATION ----------
+
     trafficManager.simulateTraffic();
 
     trafficManager.simulateRoadBlocks();
 
-    // ---------- LIVE EVENTS ----------
     eventManager.generateEvents();
 
     eventManager.showEvents();
@@ -163,8 +163,8 @@ int main() {
 
     double executionTime =
         chrono::duration<double, milli>(
-            end - start
-        ).count();
+            end - start)
+            .count();
 
     // ---------- OUTPUT ----------
     cout << "\n";
@@ -189,35 +189,32 @@ int main() {
          << " ms\n\n";
 
     // ---------- PARALLEL AGENT PROCESSING ----------
-    mutex outputMutex;
+    // ---------- AGENT PROCESSING ----------
+    for (int i = 0; i < agents.size(); i++)
+    {
 
-    auto processAgent = [&](int i) {
+        cout << "------------------------------------\n";
 
-        string result;
-
-        result += "------------------------------------\n";
-
-        result += "Agent "
-            + to_string(i)
-            + " | City: "
-            + graph.getCityName(
-                agents[i].city
-            )
-            + "\n";
+        cout << "Agent "
+             << i
+             << " | City: "
+             << graph.getCityName(
+                    agents[i].city)
+             << "\n";
 
         auto selected =
             optimizer.knapsack(
                 sortedOrders,
-                agents[i].capacity
-            );
+                agents[i].capacity);
 
         vector<int> nodes = {
-            agents[i].city
-        };
+            agents[i].city};
 
-        for(auto& order : selected) {
+        for (auto &order : selected)
+        {
 
-            if(order.city != agents[i].city) {
+            if (order.city != agents[i].city)
+            {
 
                 nodes.push_back(order.city);
             }
@@ -226,72 +223,60 @@ int main() {
         auto tspResult =
             optimizer.tsp(nodes);
 
-        auto route = tspResult.first;
+        auto route =
+            tspResult.first;
 
-        int routeCost = tspResult.second;
+        int routeCost =
+            tspResult.second;
 
-        result += "Deliveries:\n";
+        cout << "Deliveries:\n";
 
-        for(auto& order : selected) {
+        for (auto &order : selected)
+        {
 
             auto dist =
                 graph.dijkstra(
-                    agents[i].city
-                );
+                    agents[i].city);
 
-            result += "- "
-                + graph.getCityName(order.city)
-                + " | Distance: "
-                + to_string(dist[order.city])
-                + " | Priority: "
-                + to_string(order.priority);
+            cout << "- "
+                 << graph.getCityName(
+                        order.city)
+                 << " | Distance: "
+                 << dist[order.city]
+                 << " | Priority: "
+                 << order.priority;
 
-            if(order.emergency) {
+            if (order.emergency)
+            {
 
-                result += " | EMERGENCY";
+                cout << " | EMERGENCY";
             }
 
-            result += "\n";
+            cout << "\n";
         }
 
-        result += "\nRoute:\n";
+        cout << "\nRoute:\n";
 
-        for(int j = 0; j < route.size(); j++) {
+        for (int j = 0;
+             j < route.size();
+             j++)
+        {
 
-            result += graph.getCityName(route[j]);
+            cout << graph.getCityName(
+                route[j]);
 
-            if(j != route.size() - 1) {
+            if (j != route.size() - 1)
+            {
 
-                result += " -> ";
+                cout << " -> ";
             }
         }
 
-        result += "\n";
+        cout << "\n";
 
-        result += "Route Cost: "
-            + to_string(routeCost)
-            + "\n";
-
-        // thread-safe output
-        lock_guard<mutex> lock(outputMutex);
-
-        cout << result;
-    };
-
-    // ---------- CREATE THREADS ----------
-    vector<thread> threads;
-
-    for(int i = 0; i < agents.size(); i++) {
-
-        threads.push_back(
-            thread(processAgent, i)
-        );
-    }
-
-    // ---------- WAIT FOR THREADS ----------
-    for(auto& t : threads) {
-
-        t.join();
+        cout << "Route Cost: "
+             << routeCost
+             << "\n";
     }
 
     cout << "\n====================================\n";
